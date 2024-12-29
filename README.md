@@ -15,8 +15,12 @@ ArcBlock Coding Test 题目
 
 ## ImageDownload(图片下载器)
 
-获取内存缓存->获取磁盘缓存->下载图片
+<img width="1344" alt="image" src="https://github.com/user-attachments/assets/8083614f-c2f7-4e24-915a-69702b409a9b" />
+
 
 ## Refresh(下拉上拉工具)
 
 为 UIScrollView 添加上拉下拉工具,添加同时监听对应 scrollview 的滑动
+
+## Screenshot
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/2509de07-df97-43e8-ac32-0bdc9063148e" />
