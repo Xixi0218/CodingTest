@@ -28,6 +28,7 @@ class WaterFlowLayout: UICollectionViewFlowLayout {
     private var attributesForAllElements: [UICollectionViewLayoutAttributes] = []
     
     private var attributesForHeaders: [Int: UICollectionViewLayoutAttributes] = [:]
+    
     private var attributesForFooters: [Int: UICollectionViewLayoutAttributes] = [:]
     
     private var unionRects: [CGRect] = []
@@ -197,16 +198,20 @@ class WaterFlowLayout: UICollectionViewFlowLayout {
 }
 
 extension WaterFlowLayout {
+    
+    // 内容视图大小
     private var collectionViewEffectiveContentSize: CGSize {
         guard let collectionView = collectionView else { return .zero }
         return collectionView.bounds.size.applyingInset(collectionView.contentInset)
     }
     
+    // 内容展示宽度
     private func effectiveContentWidth(forSection section: Int) -> CGFloat {
         let sectionInset = inset(forSection: section)
         return collectionViewEffectiveContentSize.width - sectionInset.left - sectionInset.right
     }
     
+    // 每一列的宽度
     private func effectiveItemWidth(inSection section: Int) -> CGFloat {
         let columnSpacing = lineSpacing(forSection: section)
         let sectionContentWidth = effectiveContentWidth(forSection: section)
@@ -215,27 +220,33 @@ extension WaterFlowLayout {
         return width
     }
     
+    // 每一个cell的大小
     private func itemSize(at indexPath: IndexPath) -> CGSize {
         let referenceItemSize = delegate?.collectionView?(collectionView!, layout: self, sizeForItemAt: indexPath) ?? itemSize
         return referenceItemSize
     }
     
+    // 每一行的间距
     private func inset(forSection section: Int) -> UIEdgeInsets {
         return delegate?.collectionView?(collectionView!, layout: self, insetForSectionAt: section) ?? sectionInset
     }
     
+    // item间距
     private func lineSpacing(forSection section: Int) -> CGFloat {
         return delegate?.collectionView?(collectionView!, layout: self, minimumLineSpacingForSectionAt: section) ?? minimumLineSpacing
     }
     
+    // 行间距
     private func interitemSpacing(forSection section: Int) -> CGFloat {
         return delegate?.collectionView?(collectionView!, layout: self, minimumInteritemSpacingForSectionAt: section) ?? minimumInteritemSpacing
     }
     
+    // header大小
     private func headerReferenceSize(inSection section: Int) -> CGSize {
         return delegate?.collectionView?(collectionView!, layout: self, referenceSizeForHeaderInSection: section) ?? headerReferenceSize
     }
     
+    // footer大小
     private func footerReferenceSize(inSection section: Int) -> CGSize {
         return delegate?.collectionView?(collectionView!, layout: self, referenceSizeForFooterInSection: section) ?? footerReferenceSize
     }

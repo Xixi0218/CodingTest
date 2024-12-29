@@ -20,24 +20,31 @@ protocol TagListViewDataSource: AnyObject {
 
 class TagListView: UIView {
     
-    
-    
+    /** 标签行间距 default is 10*/
     var minimumLineSpacing: CGFloat = 10.0
     
+    /** 标签的间距 default is 10*/
     var minimumInteritemSpacing: CGFloat = 10.0
     
+    /** tagsSupView的边距 default is top:0,letf:0,bottom:0,right:0*/
     var contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     
+    /** tagsView 宽度 default  is 屏幕宽度  */
     var tagsViewWidth = UIScreen.main.bounds.width
     
+    /// 数据源代理
     weak var dataSource: TagListViewDataSource?
     
+    /// 在显示的标签
     private var displayViews = [TagListViewReusable]()
     
+    /// 准备复用的标签
     private var reuseViews = [TagListViewReusable]()
     
+    /// 复用池标识数组
     private var identifiers = [String: AnyClass]()
     
+    /// 内容大小
     private var contentSize = CGSize.zero
     
     
@@ -82,6 +89,7 @@ class TagListView: UIView {
         
     }
     
+    /// 准备复用
     func prepareForReuse() {
         guard let dataSource = dataSource else { return }
         let labelsCount = dataSource.numberOfItems(in: self)
@@ -115,6 +123,7 @@ extension TagListView {
 
 extension TagListView {
     
+    /// 根据index查找一个标签视图，没有则创建
     func dequeueReusableLabel<T>(ofType type: T.Type, index: Int) -> T where T: TagListViewReusable {
         return dequeueReusableLabel(withIdentifier: T.reuseIdentifier, index: index) as! T
     }
@@ -148,6 +157,7 @@ extension TagListView {
         }
     }
     
+    /// 往复用池中添加
     private func appendReuseView(_ view: TagListViewReusable) {
         view.removeFromSuperview()
         let index = displayViews.lastIndex { tagView in
