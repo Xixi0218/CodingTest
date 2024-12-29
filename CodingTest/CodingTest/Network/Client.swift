@@ -23,7 +23,7 @@ class Client: NSObject {
     }
     
     func send<T: Codable>(request: Request) async throws ->  T {
-        let (data, response) = try await session.data(for: makeURLRequest(for: request))
+        let (data, _) = try await session.data(for: makeURLRequest(for: request))
         return try decoder.decode(T.self, from: data)
     }
     

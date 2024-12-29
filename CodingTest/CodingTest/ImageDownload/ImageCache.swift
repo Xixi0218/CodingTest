@@ -30,6 +30,7 @@ class ImageCache {
         if let fileURL = diskCacheURL?.appendingPathComponent(key),
            let data = try? Data(contentsOf: fileURL),
            let image = UIImage(data: data) {
+            memoryCache.setObject(image, forKey: key as NSString)
             return image
         }
         return nil

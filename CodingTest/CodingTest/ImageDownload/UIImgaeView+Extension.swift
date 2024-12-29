@@ -41,6 +41,7 @@ extension UIImageView {
             }
         } else {
             image = placeholder
+            taskIdentifier = nil
         }
     }
 }
