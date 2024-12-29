@@ -41,6 +41,7 @@ class ViewController: UIViewController {
     
     private func configSubView() {
         navigationItem.title = "博客"
+        view.backgroundColor = .white
         [collectionView].forEach { view.addSubview($0) }
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)

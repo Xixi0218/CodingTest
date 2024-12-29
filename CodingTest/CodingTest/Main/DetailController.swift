@@ -38,10 +38,11 @@ class DetailController: UIViewController {
     }
     
     private func configSubView() {
+        view.backgroundColor = .white
         [webView, progressView].forEach { view.addSubview($0) }
         webView.snp.makeConstraints { make in
-            make.left.top.right.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.left.right.equalToSuperview()
+            make.top.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         progressView.snp.makeConstraints { make in
@@ -64,6 +65,7 @@ class DetailController: UIViewController {
         config.allowsInlineMediaPlayback = true
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.allowsLinkPreview = false
+        webView.backgroundColor = .white
         return webView
     }()
     
