@@ -23,9 +23,13 @@ class ListCell: UICollectionViewCell {
     func update(model: ListModel) {
         self.labels = model.labels.filter { !$0.contains(":") }
         self.titleLabel.text = model.title
-        self.timeLabel.text = model.createdAt
+        if let date = dateFormatter.date(from: model.createdAt) {
+            self.timeLabel.text = resultDateFormatter.string(from: date)
+        } else {
+            self.timeLabel.text = model.createdAt
+        }
         self.tagView.reloadData()
-        self.coverImageView.setImage(with: URL(string: "https://www.arcblock.io/blog/uploads\(model.cover)"), placeholder: nil, cropSize: CGSize(width: (UIScreen.main.bounds.width - 16 - 8) / 2, height: 80))
+        self.coverImageView.setImage(with: URL(string: "https://www.arcblock.io/blog/uploads\(model.cover)"), placeholder: nil, cropSize: CGSize(width: (UIScreen.main.bounds.width - 16 - 8) / 2 * UIScreen.main.scale, height: 80 * UIScreen.main.scale))
     }
     
     private func configSubView() {
@@ -113,6 +117,17 @@ class ListCell: UICollectionViewCell {
         return label
     }()
     
+    private lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        return dateFormatter
+    }()
+    
+    private lazy var resultDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy年MM月dd号"
+        return dateFormatter
+    }()
 }
 
 extension ListCell: TagListViewDataSource {
